@@ -1,0 +1,127 @@
+{
+  "id": "com.madhav.targetassetentry",
+  "version": "1.0.0",
+  "name": "Target Asset Entry",
+  "description": "Target asset class and capitalisation month data entry widget",
+  "newInstancePrefix": "TargetAssetEntry",
+  "vendor": "Madhav Pandey",
+  "eula": "",
+  "license": "",
+  "webcomponents": [
+    {
+      "kind": "main",
+      "tag": "com-madhav-targetassetentry",
+      "url": "https://madhavpandey1478-sys.github.io/CWIPASSET/targetassetentry.js",
+      "integrity": "",
+      "ignoreIntegrity": true
+    }
+  ],
+  "properties": {
+    "width": {
+      "type": "integer",
+      "default": 800
+    },
+    "height": {
+      "type": "integer",
+      "default": 500
+    }
+  },
+  "methods": {
+    "getLastEvent": {
+      "returnType": "string",
+      "description": "Returns the last event payload. Split by '|'. "
+    },
+    "getData": {
+      "returnType": "string",
+      "description": "Returns all rows as a JSON string."
+    },
+    "getSelectedData": {
+      "returnType": "string",
+      "description": "Returns selected rows as a JSON string."
+    },
+    "setData": {
+      "description": "Replaces all rows. Pass a JSON array of asset records.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "string",
+          "description": "JSON array with assetId, assetClass, and capitalizedMonth."
+        }
+      ]
+    },
+    "setCellValue": {
+      "description": "Sets a single cell value and re-renders.",
+      "parameters": [
+        {
+          "name": "rowIndex",
+          "type": "integer",
+          "description": "Zero-based row index."
+        },
+        {
+          "name": "fieldName",
+          "type": "string",
+          "description": "assetId, assetClass (Target Asset Class), or capitalizedMonth."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Value to set; capitalizedMonth uses YYYY-MM."
+        }
+      ]
+    },
+    "setRowOptions": {
+      "description": "Sets dropdown options for a specific row's Target Asset Class cell.",
+      "parameters": [
+        {
+          "name": "rowIndex",
+          "type": "integer",
+          "description": "Zero-based row index."
+        },
+        {
+          "name": "fieldName",
+          "type": "string",
+          "description": "Use assetClass."
+        },
+        {
+          "name": "options",
+          "type": "string",
+          "description": "JSON array of values or {value,text} objects."
+        }
+      ]
+    },
+    "setOptions": {
+      "description": "Sets default Target Asset Class dropdown options for all rows without row-specific options.",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "string",
+          "description": "JSON array such as [\"Machinery\",\"Buildings\"] or [{\"value\":\"MACH\",\"text\":\"Machinery\"}]."
+        }
+      ]
+    },
+    "setCompanyCodeOptions": {
+      "description": "Sets Company Code filter options. If omitted, distinct companyCode values are inferred from loaded rows.",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "string",
+          "description": "JSON array of values or objects with value and text properties."
+        }
+      ]
+    }
+  },
+  "events": {
+    "onReady": {
+      "description": "Fires when the widget is mounted. Use it to initialize data and dropdown options."
+    },
+    "onDataChange": {
+      "description": "Fires for Load Data, Save Changes, and row selection. Read getLastEvent() for the action payload."
+    },
+    "onFieldChange": {
+      "description": "Fires when Asset Class or Capitalized Month changes. Payload: fieldChange|row|field|value."
+    },
+    "onClear": {
+      "description": "Fires when editable Asset Class and Capitalized Month values are cleared."
+    }
+  }
+}
