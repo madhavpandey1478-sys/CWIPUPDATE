@@ -7,9 +7,9 @@
    ========================================================= */
 
 var FIELDS = [
-    { field: "assetId", label: "Asset ID", type: "text", width: 200, readonly: true },
-    { field: "assetClass", label: "TARGET ASSET CLASS", type: "select", width: 300 },
-    { field: "capitalizedMonth", label: "Capitalized Month", type: "month", width: 240 }
+    { field: "assetId", label: "ASSET ID", type: "text", width: 130, readonly: true },
+    { field: "assetClass", label: "TARGET ASSET CLASS", type: "select", width: 460 },
+    { field: "capitalizedMonth", label: "CAPITALIZED MONTH", type: "month", width: 170 }
 ];
 
 var ALL_FIELDS = FIELDS.map(function (f) {
@@ -37,6 +37,16 @@ var CSS = `
     border:1px solid #d9e0e7;
     border-radius:8px;
     overflow:hidden;
+}
+
+.widget-title {
+    padding:12px 14px;
+    background:#edf4fb;
+    color:#243746;
+    border-bottom:1px solid #d4e0eb;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.3px;
 }
 
 .top {
@@ -314,6 +324,7 @@ var template = document.createElement("template");
 template.innerHTML =
     '<style>' + CSS + '</style>' +
     '<div class="wrap">' +
+      '<div class="widget-title">CWIP ASSET UPDATE</div>' +
       '<div class="top">' +
         '<input id="search" class="search" placeholder="Search Asset ID..." aria-label="Search Asset ID">' +
         '<span class="visible">Visible: <strong id="visibleCount">0</strong></span>' +
@@ -506,7 +517,6 @@ class TargetAssetEntry extends HTMLElement {
             return result;
         }));
     }
-
     setCellValue(rowIndex,field,value) {
         if (!this._rows[rowIndex]) return;
 
@@ -631,6 +641,7 @@ class TargetAssetEntry extends HTMLElement {
             return (!query || id.indexOf(query) !== -1);
         });
     }
+
     _pageCount() {
         return Math.max(1,Math.ceil(this._filtered().length / this._pageSize));
     }
@@ -646,7 +657,7 @@ class TargetAssetEntry extends HTMLElement {
         var pageItems = filtered.slice(start,start + this._pageSize);
 
         this.head.innerHTML =
-            '<th class="selhead">Sel <input id="selectAll" class="check" type="checkbox"></th>' +
+            '<th class="selhead">SEL <input id="selectAll" class="check" type="checkbox"></th>' +
             FIELDS.map(function(col) {
                 return '<th style="width:' + col.width + 'px">' +
                     self._esc(col.label) + '</th>';
@@ -756,7 +767,6 @@ class TargetAssetEntry extends HTMLElement {
 
         this._updateStatus();
     }
-
     _buildDropdown(row,index,col) {
         var self = this;
         var wrap = document.createElement("div");
@@ -882,6 +892,7 @@ class TargetAssetEntry extends HTMLElement {
 
         return wrap;
     }
+
     _clearSelectedOrAll() {
         var self = this;
 
